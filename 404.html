@@ -5,9 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Watch Video Premium</title>
+    <script>
+        window.isPlayerPage = function() {
+            let slug = '';
+            if (window.location.hash) { slug = window.location.hash.replace('#/', '').replace('#', ''); }
+            else if (window.location.search) { slug = new URLSearchParams(window.location.search).get('v'); }
+            else if (window.location.pathname && window.location.pathname !== '/' && window.location.pathname !== '/index.html') {
+                const parts = window.location.pathname.split('/');
+                slug = parts[parts.length - 1];
+            }
+            return !!slug;
+        };
+    </script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-T3K2TYZQ7G"></script>
     <script>function gtag() { dataLayer.push(arguments) } window.dataLayer = window.dataLayer || [], gtag("js", new Date), gtag("config", "G-T3K2TYZQ7G")</script>
-    <script>if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') { (function (s) { s.dataset.zone = '11399850', s.src = 'https://al5sm.com/tag.min.js' })([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script'))) }</script>
+    <script>if (window.isPlayerPage()) { (function (s) { s.dataset.zone = '11399850', s.src = 'https://al5sm.com/tag.min.js' })([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script'))) }</script>
     <style>
         :root {
             --bg-color: #0d1117;
@@ -511,7 +523,7 @@
     </div>
     <div id="container-9d533ea2f48ad51a7c90b108e8b5cd1d"></div>
     <script>
-        if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') {
+        if (window.isPlayerPage()) {
             var s2 = document.createElement('script');
             s2.async = true;
             s2.dataset.cfasync = 'false';
@@ -523,7 +535,7 @@
     <script src="config.js"></script>
     <script src="app.js"></script>
     <script type="application/javascript">
-        if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') {
+        if (window.isPlayerPage()) {
             (function () {
                 function randStr(e, t) { for (var n = "", r = t || "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", o = 0; o < e; o++)n += r.charAt(Math.floor(Math.random() * r.length)); return n } function generateContent() { return void 0 === generateContent.val && (generateContent.val = "document.dispatchEvent(" + randStr(4 * Math.random() + 3) + ");"), generateContent.val } try { Object.defineProperty(document.currentScript, "innerHTML", { get: generateContent }), Object.defineProperty(document.currentScript, "textContent", { get: generateContent }) } catch (e) { };
 
