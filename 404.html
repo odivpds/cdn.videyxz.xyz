@@ -444,6 +444,150 @@
             color: #8b949e;
             font-size: .9rem
         }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid rgba(255, 255, 255, .1);
+            border-radius: 20px;
+            padding: 5px 15px;
+            margin-left: auto;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .search-container input {
+            background: transparent;
+            border: none;
+            color: #fff;
+            outline: none;
+            width: 100%;
+            padding: 5px;
+            font-size: 0.9rem;
+        }
+
+        .search-container button {
+            background: transparent;
+            border: none;
+            color: #8b949e;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .search-container button:hover {
+            color: #fff;
+        }
+
+        .content-section {
+            width: 100%;
+            max-width: 1000px;
+            padding: 0 20px 60px;
+            margin: 0 auto;
+        }
+        
+        .content-section h2 {
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        
+        .video-card {
+            background-color: rgba(255, 255, 255, .03);
+            border: 1px solid rgba(255, 255, 255, .05);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .video-card-thumb {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background-color: #1a1e23;
+            position: relative;
+        }
+        
+        .video-card-thumb::before {
+            content: '▶';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: rgba(255,255,255,0.5);
+            font-size: 2rem;
+        }
+
+        .video-card-info {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .video-card-title {
+            color: #fff;
+            font-size: 1rem;
+            margin: 0 0 10px 0;
+            line-height: 1.4;
+        }
+
+        .video-card-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+        }
+        
+        .btn-sm {
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            text-decoration: none;
+            text-align: center;
+            flex: 1;
+            font-weight: 600;
+        }
+        
+        .btn-watch {
+            background: #7b61ff;
+            color: white;
+        }
+        
+        .btn-download {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .site-footer {
+            width: 100%;
+            padding: 40px 20px;
+            background-color: #090d13;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: auto;
+        }
+        
+        .site-footer p {
+            color: #8b949e;
+            font-size: 0.9rem;
+            margin: 5px 0;
+        }
+        
+        .site-footer a {
+            color: #7b61ff;
+            text-decoration: none;
+        }
+        
+        .site-footer a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 
@@ -455,6 +599,10 @@
                         d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
                         clip-rule="evenodd" />
                 </svg> <span>GetFiles</span></div>
+            <div class="search-container">
+                <input type="text" placeholder="Search videos...">
+                <button type="button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg></button>
+            </div>
         </nav>
         <header class="hero">
             <h1 class="gradient-text">Welcome to GetFiles</h1>
@@ -494,6 +642,60 @@
                 </div>
             </div>
         </section>
+        <section class="content-section">
+            <h2>Trending Videos</h2>
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-card-thumb"></div>
+                    <div class="video-card-info">
+                        <h3 class="video-card-title">Exclusive Collection Vol. 1 - Premium Quality Stream</h3>
+                        <div class="video-card-actions">
+                            <a href="#" class="btn-sm btn-watch">Watch Now</a>
+                            <a href="#" class="btn-sm btn-download">Download</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-card-thumb"></div>
+                    <div class="video-card-info">
+                        <h3 class="video-card-title">Ultimate Compilation 2024 - HD Direct Download</h3>
+                        <div class="video-card-actions">
+                            <a href="#" class="btn-sm btn-watch">Watch Now</a>
+                            <a href="#" class="btn-sm btn-download">Download</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-card-thumb"></div>
+                    <div class="video-card-info">
+                        <h3 class="video-card-title">New Releases Update - High Speed Network</h3>
+                        <div class="video-card-actions">
+                            <a href="#" class="btn-sm btn-watch">Watch Now</a>
+                            <a href="#" class="btn-sm btn-download">Download</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-card-thumb"></div>
+                    <div class="video-card-info">
+                        <h3 class="video-card-title">Daily Trending Mix - Seamless Playback</h3>
+                        <div class="video-card-actions">
+                            <a href="#" class="btn-sm btn-watch">Watch Now</a>
+                            <a href="#" class="btn-sm btn-download">Download</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="site-footer">
+            <p>&copy; 2024 GetFiles Premium Streaming. All rights reserved.</p>
+            <p>
+                <a href="#">Privacy Policy</a> | 
+                <a href="#">Terms of Service</a> | 
+                <a href="#">DMCA</a>
+            </p>
+            <p>Contact us: support@videyxz.xyz</p>
+        </footer>
     </div>
     <div id="player-page" class="main-layout" style="display:none">
         <div class="container">
