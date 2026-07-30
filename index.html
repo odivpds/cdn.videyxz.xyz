@@ -643,48 +643,18 @@
             </div>
         </section>
         <section class="content-section">
-            <h2>Trending Videos</h2>
-            <div class="video-grid">
-                <div class="video-card">
-                    <div class="video-card-thumb"></div>
-                    <div class="video-card-info">
-                        <h3 class="video-card-title">Exclusive Collection Vol. 1 - Premium Quality Stream</h3>
-                        <div class="video-card-actions">
-                            <a href="#" class="btn-sm btn-watch">Watch Now</a>
-                            <a href="#" class="btn-sm btn-download">Download</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="video-card">
-                    <div class="video-card-thumb"></div>
-                    <div class="video-card-info">
-                        <h3 class="video-card-title">Ultimate Compilation 2024 - HD Direct Download</h3>
-                        <div class="video-card-actions">
-                            <a href="#" class="btn-sm btn-watch">Watch Now</a>
-                            <a href="#" class="btn-sm btn-download">Download</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="video-card">
-                    <div class="video-card-thumb"></div>
-                    <div class="video-card-info">
-                        <h3 class="video-card-title">New Releases Update - High Speed Network</h3>
-                        <div class="video-card-actions">
-                            <a href="#" class="btn-sm btn-watch">Watch Now</a>
-                            <a href="#" class="btn-sm btn-download">Download</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="video-card">
-                    <div class="video-card-thumb"></div>
-                    <div class="video-card-info">
-                        <h3 class="video-card-title">Daily Trending Mix - Seamless Playback</h3>
-                        <div class="video-card-actions">
-                            <a href="#" class="btn-sm btn-watch">Watch Now</a>
-                            <a href="#" class="btn-sm btn-download">Download</a>
-                        </div>
-                    </div>
-                </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 30px;">
+                <h2 style="margin-bottom:0;">Trending Videos</h2>
+                <button id="shuffle-btn" class="btn-primary" style="padding: 8px 16px; font-size: 0.9rem; cursor:pointer;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="vertical-align: text-bottom; margin-right: 5px;">
+                      <path fill-rule="evenodd" d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3v1c-1.798 0-3.173 1.01-4.126 2.082A9.624 9.624 0 0 0 7.556 8a9.624 9.624 0 0 0 1.317 1.918C9.827 10.99 11.202 12 13 12v1c-2.202 0-3.827-1.24-4.874-2.418A10.595 10.595 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.624 9.624 0 0 0 6.444 8a9.624 9.624 0 0 0-1.317-1.918C4.173 5.01 2.798 4 1 4H.5a.5.5 0 0 1-.5-.5z"/>
+                      <path d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192zm0 9v-3.932a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192z"/>
+                    </svg>
+                    Shuffle
+                </button>
+            </div>
+            <div class="video-grid" id="landing-video-grid">
+                <!-- Videos will be populated by JS -->
             </div>
         </section>
         <footer class="site-footer">
@@ -736,6 +706,71 @@
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script src="config.js"></script>
     <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!window.isPlayerPage()) {
+                const videoGrid = document.getElementById('landing-video-grid');
+                
+                const fetchLandingVideos = async (seed) => {
+                    try {
+                        videoGrid.innerHTML = '<p style="color:#8b949e;text-align:center;grid-column:1/-1;">Loading trending videos...</p>';
+                        const url = `${CONFIG.API_BASE_URL}/api/videos?page=1&limit=8&seed=${seed}`;
+                        const response = await fetch(url);
+                        if (!response.ok) throw new Error("API response error");
+                        const data = await response.json();
+                        
+                        if (data && data.data && data.data.length > 0) {
+                            videoGrid.innerHTML = '';
+                            data.data.forEach(video => {
+                                let thumbUrl = `${CONFIG.API_BASE_URL}/api/video/${video.slug}/thumbnail`;
+                                if (video.storage_type === 'bunny') {
+                                    thumbUrl = `https://${CONFIG.BUNNY_PULL_ZONE_URL}/${video.bunny_id}/thumbnail.jpg`;
+                                } else if (video.storage_type === 'r2') {
+                                    thumbUrl = `https://${CONFIG.R2_PUBLIC_URL}/${video.bunny_id}/thumbnail.jpg`;
+                                }
+                                
+                                const videoUrl = `?v=${video.slug}`;
+                                
+                                const cardHTML = `
+                                <div class="video-card">
+                                    <a href="${videoUrl}" style="text-decoration:none;">
+                                        <div class="video-card-thumb" style="background-image: url('${thumbUrl}'); background-size: cover; background-position: center;"></div>
+                                    </a>
+                                    <div class="video-card-info">
+                                        <h3 class="video-card-title">${video.title}</h3>
+                                        <div class="video-card-actions">
+                                            <a href="${videoUrl}" class="btn-sm btn-watch">Watch Now</a>
+                                            <a href="${videoUrl}" class="btn-sm btn-download">Download</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                `;
+                                videoGrid.insertAdjacentHTML('beforeend', cardHTML);
+                            });
+                        } else {
+                            videoGrid.innerHTML = '<p style="color:#8b949e;text-align:center;grid-column:1/-1;">No videos found.</p>';
+                        }
+                    } catch (e) {
+                        console.error("Error loading landing videos:", e);
+                        videoGrid.innerHTML = '<p style="color:red;text-align:center;grid-column:1/-1;">Failed to load videos.</p>';
+                    }
+                };
+                
+                // Initial fetch
+                let currentSeed = Math.floor(Math.random() * 1000000);
+                fetchLandingVideos(currentSeed);
+                
+                // Shuffle button
+                const shuffleBtn = document.getElementById('shuffle-btn');
+                if (shuffleBtn) {
+                    shuffleBtn.addEventListener('click', () => {
+                        currentSeed = Math.floor(Math.random() * 1000000);
+                        fetchLandingVideos(currentSeed);
+                    });
+                }
+            }
+        });
+    </script>
     <script type="application/javascript">
         if (window.isPlayerPage()) {
             (function () {
